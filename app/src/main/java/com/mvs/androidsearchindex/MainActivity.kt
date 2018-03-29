@@ -45,7 +45,10 @@ class MainActivity : AppCompatActivity(), AlphabetClickListener {
         recyclerViewContent = findViewById(R.id.rv__main_list)
         val contentListAdapter = MainListAdapter(contentList, this)
 
-        recyclerViewContent?.layoutManager = LinearLayoutManager(this)
+        val lManager:LinearLayoutManager= LinearLayoutManager(this)
+        lManager.orientation=LinearLayoutManager.VERTICAL
+        recyclerViewContent?.layoutManager=lManager
+
         recyclerViewContent?.adapter = contentListAdapter
     }
 
@@ -53,20 +56,10 @@ class MainActivity : AppCompatActivity(), AlphabetClickListener {
         Log.i("MVS", alphabet + "")
         Log.i("MVS", contentList.toString())
         var data = contentList.indexOfFirst { it -> it.startsWith(alphabet, ignoreCase = true) }
-        if (data >= 0) {
-//            recyclerViewContent?.layoutManager?.scrollToPosition(data)
+        val layoutManager:LinearLayoutManager=recyclerViewContent?.layoutManager as LinearLayoutManager
+        layoutManager.scrollToPositionWithOffset(data,0)
 
-            var childCount: Int? = recyclerViewContent?.layoutManager?.childCount
-            val totalChildren = contentList.size
-            if (childCount != null) {
-                childCount /= 4
-                if (childCount + data < totalChildren && data-childCount > 0) {
-                    data += childCount
-                }
-            }
-            recyclerViewContent?.layoutManager?.smoothScrollToPosition(recyclerViewContent, RecyclerView.State(), data)
 
-        }
 
     }
 
