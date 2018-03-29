@@ -8,7 +8,8 @@ import android.util.Log
 
 class MainActivity : AppCompatActivity(), AlphabetClickListener {
 
-    private val alphabetsList = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
+//    private val  = listOf('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z')
+    private lateinit var alphabetsList:List<Char>
     private val contentSampleList = listOf<String>("unreverberated", "bobble", "postmeiotic", "syndiotactic", "islamize", "enone", "desalination",
             "gasthauses", "gendarmerie", "intractability", "reidentified", "heartthrob", "isolative", "avowed", "headstrong",
             "hyrnetho", "colorationally", "unrefractive", "luces", "stumpiness", "vixenishness", "doisy", "fishiest", "misesteem",
@@ -22,14 +23,21 @@ class MainActivity : AppCompatActivity(), AlphabetClickListener {
             "lobstick", "bafflingness", "appellatively", "unperiphrastically", "redecay", "menshevik", "vidicon", "manta", "snakily"
     )
 
-    private val contentList = contentSampleList.sorted()
-    var recyclerViewContent: RecyclerView? = null
+
+
+    private lateinit var contentList:List<String>
+    private var recyclerViewContent: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        println("mvs" + contentList.size)
-        println("mvs" + alphabetsList)
+        contentList = contentSampleList.sorted()
+        alphabetsList=contentList.groupBy { it.first().toUpperCase() }.map { it.key }
+
+        println("mvs123 ...................  ")
+
+        println("mvs123   ${contentList.size}")
+        println("mvs123   $alphabetsList")
         intiViews()
 
     }
